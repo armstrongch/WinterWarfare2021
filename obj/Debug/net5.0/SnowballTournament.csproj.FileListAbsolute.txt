@@ -1,0 +1,16 @@
+C:\Users\chris\Source\Repos\SnowballTournament\bin\Debug\net5.0\SnowballTournament.exe
+C:\Users\chris\Source\Repos\SnowballTournament\bin\Debug\net5.0\SnowballTournament.deps.json
+C:\Users\chris\Source\Repos\SnowballTournament\bin\Debug\net5.0\SnowballTournament.runtimeconfig.json
+C:\Users\chris\Source\Repos\SnowballTournament\bin\Debug\net5.0\SnowballTournament.runtimeconfig.dev.json
+C:\Users\chris\Source\Repos\SnowballTournament\bin\Debug\net5.0\SnowballTournament.dll
+C:\Users\chris\Source\Repos\SnowballTournament\bin\Debug\net5.0\ref\SnowballTournament.dll
+C:\Users\chris\Source\Repos\SnowballTournament\bin\Debug\net5.0\SnowballTournament.pdb
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.csprojAssemblyReference.cache
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.AssemblyInfoInputs.cache
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.AssemblyInfo.cs
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.csproj.CoreCompileInputs.cache
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.dll
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\ref\SnowballTournament.dll
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.pdb
+C:\Users\chris\Source\Repos\SnowballTournament\obj\Debug\net5.0\SnowballTournament.genruntimeconfig.cache

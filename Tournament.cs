@@ -8,7 +8,7 @@ namespace SnowballTournament
 {
     class Tournament
     {
-        public List<Team> teams { get; private set; }
+        public List<Player> players { get; private set; }
         static string[] NeighborhoodNames = { "Mulberry", "Maple Valley", "Stonehenge", "Woodchuck", "Beckwith Hill", "Horse Pond", "Forsythe"};
         public bool NonPlayerInfo = true;
         Random rand;
@@ -16,37 +16,24 @@ namespace SnowballTournament
         public Tournament(int numPlayers)
         {
             Console.WriteLine("After the first snowfall, each neighborhood in town " +
-                "assembles a team of children to compete in a round-robin," +
+                "assembles a team of children to compete in a double elimination " +
                 "snowball-fighting tournament.");
-            teams = new List<Team>();
+            players = new List<Player>();
             rand = new Random();
 
             for (int i = 1; i <= 8; i += 1)
             {
-                string teamName = "";
+                string playerName = "";
                 if (i <= numPlayers)
                 {
-                    Console.WriteLine("Team #" + i + ", what neighborhood us your team from?");
-                    do
-                    {
-                        try { teamName = Console.ReadLine(); }
-                        catch { }
-                        if (teamName.Length == 0)
-                        {
-                            Console.WriteLine("Please enter the name of your neighborhood, team #" + i);
-                        }
-                        else
-                        {
-                            teamName = char.ToUpper(teamName[0]) + teamName.Substring(1);
-
-                        }
-                    } while (teamName.Length == 0);
+                    Console.WriteLine("Player #" + i + ", what neighborhood us your team from?");
+                    playerName = Utility.GetNameInput("Please enter the name of your neighborhood, player #" + i);
                 }
                 else
                 {
-                    teamName = NeighborhoodNames[i-2];
+                    playerName = NeighborhoodNames[i-2];
                 }
-                teams.Add(new Team(teamName, i, i <= numPlayers));
+                players.Add(new Player(playerName, i, i <= numPlayers));
             }
             Console.WriteLine("Would you like info about snowball fights between non-player neighborhoods? (Y or N)");
             NonPlayerInfo = Utility.GetYNInput("Y or N?");
@@ -54,17 +41,17 @@ namespace SnowballTournament
 
         public FightResult SimulateFight(string stakes, int seedA, int seedB)
         {
-            return SimulateFight(stakes, getTeam(seedA), getTeam(seedB));
+            return SimulateFight(stakes, getPlayer(seedA), getPlayer(seedB));
         }
 
-        public FightResult SimulateFight(string stakes, Team TeamA, Team TeamB)
+        public FightResult SimulateFight(string stakes, Player PlayerA, Player PlayerB)
         {
             bool playByPlay = false;
-            bool generalInfo = ((TeamA.human) || (TeamB.human) || (NonPlayerInfo));
+            bool generalInfo = ((PlayerA.human) || (PlayerB.human) || (NonPlayerInfo));
             if (generalInfo)
             {
                 Console.WriteLine("*******************************************************");
-                Console.WriteLine(stakes + TeamA.FullName() + " vs. " + TeamB.FullName());
+                Console.WriteLine(stakes + PlayerA.FullName() + " vs. " + PlayerB.FullName());
                 Console.WriteLine("Do you want the play-by-play? (Y or N)");
                 playByPlay = Utility.GetYNInput("Y or N?");
             }
@@ -75,43 +62,44 @@ namespace SnowballTournament
             }
             if (rand.NextDouble() >= 0.5)
             {
-                TeamA.wins += 1;
-                TeamB.losses += 1;
-                Console.WriteLine(TeamA.FullName() + " defeats " + TeamB.FullName());
-                return new FightResult() { winner = TeamA, loser = TeamB };
+                PlayerA.wins += 1;
+                PlayerB.losses += 1;
+                Console.WriteLine(PlayerA.FullName() + " defeats " + PlayerB.FullName());
+                return new FightResult() { winner = PlayerA, loser = PlayerB };
             }
             else
             {
-                TeamA.losses += 1;
-                TeamB.wins += 1;
-                Console.WriteLine(TeamB.FullName() + " defeats " + TeamA.FullName());
-                return new FightResult() { winner = TeamB, loser = TeamA };
+                PlayerA.losses += 1;
+                PlayerB.wins += 1;
+                Console.WriteLine(PlayerB.FullName() + " defeats " + PlayerA.FullName());
+                return new FightResult() { winner = PlayerB, loser = PlayerA };
 }
         }
 
         public void Prelim()
         {
-            Console.WriteLine("Before the tournament can begin, each team must face each other team in a friendly " +
-                "preliminary fight. The results of these pre-tournament matches will be used for seeding.");
+            Console.WriteLine("Before the tournament can begin, each neighborhood must face each other " +
+                "neighborhood in a preliminary fight. The results of these pre-tournament matches will " +
+                "be used for seeding.");
             for (int i = 1; i < 8; i += 1)
             {
                 for (int j = i+1; j <= 8; j += 1)
                 {
-                    SimulateFight("", teams.Find(t => t.id == i), teams.Find(t => t.id == j));
+                    SimulateFight("", players.Find(t => t.id == i), players.Find(t => t.id == j));
                 }
             }
             Console.WriteLine("Seeding:");
-            teams = teams.OrderBy(t => t.losses).ToList();
+            players = players.OrderBy(t => t.losses).ToList();
             for (int i = 0; i < 8; i += 1)
             {
-                teams[i].seed = i + 1;
-                Console.WriteLine("Seed #" + teams[i].seed + ": " + teams[i].FullName());
+                players[i].seed = i + 1;
+                Console.WriteLine("Seed #" + players[i].seed + ": " + players[i].FullName());
             }
         }
 
-        private Team getTeam(int seed)
+        private Player getPlayer(int seed)
         {
-            return teams.Find(t => t.seed == seed);
+            return players.Find(t => t.seed == seed);
         }
 
         public void Bracket()
@@ -150,7 +138,7 @@ namespace SnowballTournament
                 + "fights, they will be crowned the overall champion.");
 
             FightResult Fight14 = SimulateFight("Tournament Final: ", Fight13.winner, Fight11.winner);
-            Team winner;
+            Player winner;
             if (Fight14.winner.id == Fight11.winner.id)
             {
                 winner = Fight14.winner;

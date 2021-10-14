@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnowballTournament
 {
-    public class Team
+    public class Player
     {
         public string name;
         public int id;
@@ -15,15 +15,18 @@ namespace SnowballTournament
         public int wins = 0;
         public int losses = 0;
         public int seed;
-        public Team(string name, int id, bool human)
+
+        List<Child> Children;
+        public Player(string name, int id, bool human)
         {
             this.name = name;
             this.id = id;
             this.human = human;
+            Children = new List<Child>();
         }
         public string FullName()
         {
-            return name + " (team #" + id + ", " + wins + "-" + losses +")";
+            return name + " (neighborhood #" + id + ", " + wins + "-" + losses +")";
         }
     }
 }

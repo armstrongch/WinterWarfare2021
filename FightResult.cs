@@ -2,7 +2,7 @@
 {
     public class FightResult
     {
-        public Team winner;
-        public Team loser;
+        public Player winner;
+        public Player loser;
     }
 }

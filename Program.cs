@@ -10,17 +10,8 @@ namespace SnowballTournament
             bool playAgain = false;
             do
             {
-                int numPlayers = -1;
-                do
-                {
-                    Console.WriteLine("How many teams? (1-8)");
-                    try
-                    {
-                        numPlayers = Int32.Parse(Console.ReadLine());
-                    }
-                    catch { }
-                } while ((numPlayers < 1) || (numPlayers > 8));
-
+                Console.WriteLine("How many human players? (1-8)");
+                int numPlayers = Utility.GetIntegerInputInRange(8, 1, "How many human players? (1-8)");
                 Tournament tournament = new Tournament(numPlayers);
                 tournament.Prelim();
                 tournament.Bracket();
